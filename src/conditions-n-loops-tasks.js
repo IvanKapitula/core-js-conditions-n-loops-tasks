@@ -575,6 +575,17 @@ function getSpiralMatrix(size) {
  */
 function rotateMatrix(/* matrix */) {
   throw new Error('Not implemented');
+  // const res = [];
+  // for (let i = matrix.length - 1; i >= 0; i -= 1) {
+  //   for (let k = 0; k < matrix[i].length; k += 1) {
+  //     if (!res[k]) {
+  //       res[k] = [];
+  //     }
+  //     res[k].push(matrix[i][k]);
+  //   }
+  // }
+  // console.log(res);
+  // return res;
 }
 
 /**
@@ -591,17 +602,16 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
-  // const newArr = arr;
-  // for (let i = 0; i < newArr.length; i += 1) {
-  //   for (let j = 0; j < newArr.length; j += 1) {
-  //     if (newArr[j - 1] > newArr[j]) {
-  //       [newArr[j - 1], newArr[j]] = [newArr[j], newArr[j - 1]];
-  //     }
-  //   }
-  // }
-  // return newArr;
+function sortByAsc(arr) {
+  const newArr = arr;
+  for (let i = 0; i < newArr.length; i += 1) {
+    for (let j = 0; j < newArr.length; j += 1) {
+      if (newArr[j - 1] > newArr[j]) {
+        [newArr[j - 1], newArr[j]] = [newArr[j], newArr[j - 1]];
+      }
+    }
+  }
+  return newArr;
 }
 
 /**
@@ -621,35 +631,34 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
-  // let onePart = '';
-  // let twoPart = '';
-  // let result = '';
-  // for (let j = 0; j < iterations; j += 1) {
-  //   onePart = '';
-  //   twoPart = '';
-  //   if (result.length !== 0) {
-  //     for (let i = 0; i < result.length; i += 1) {
-  //       if (i % 2 !== 0) {
-  //         twoPart += result[i];
-  //       } else {
-  //         onePart += result[i];
-  //       }
-  //     }
-  //     result = onePart + twoPart;
-  //   } else {
-  //     for (let i = 0; i < str.length; i += 1) {
-  //       if (i % 2 !== 0) {
-  //         twoPart += str[i];
-  //       } else {
-  //         onePart += str[i];
-  //       }
-  //     }
-  //     result = onePart + twoPart;
-  //   }
-  // }
-  // return result;
+function shuffleChar(str, iterations) {
+  let onePart = '';
+  let twoPart = '';
+  let result = '';
+  for (let j = 0; j < iterations; j += 1) {
+    onePart = '';
+    twoPart = '';
+    if (result.length !== 0) {
+      for (let i = 0; i < result.length; i += 1) {
+        if (i % 2 !== 0) {
+          twoPart += result[i];
+        } else {
+          onePart += result[i];
+        }
+      }
+      result = onePart + twoPart;
+    } else {
+      for (let i = 0; i < str.length; i += 1) {
+        if (i % 2 !== 0) {
+          twoPart += str[i];
+        } else {
+          onePart += str[i];
+        }
+      }
+      result = onePart + twoPart;
+    }
+  }
+  return result;
 }
 
 /**
