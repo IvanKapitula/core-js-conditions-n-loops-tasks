@@ -275,68 +275,101 @@ function convertToRomanNumerals(num) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
-  // const arrayString = [
-  //   'zero',
-  //   'one',
-  //   'two',
-  //   'three',
-  //   'four',
-  //   'five',
-  //   'six',
-  //   'seven',
-  //   'eight',
-  //   'nine',
-  //   'minus',
-  //   'point',
-  // ];
-  // const res = [];
-  // for (let i = 0; i < numberStr.length; i += 1) {
-  //   switch (numberStr[i]) {
-  //     case '0':
-  //       res.push(arrayString[0]);
-  //       break;
-  //     case '1':
-  //       res.push(arrayString[1]);
-  //       break;
-  //     case '2':
-  //       res.push(arrayString[2]);
-  //       break;
-  //     case '3':
-  //       res.push(arrayString[3]);
-  //       break;
-  //     case '4':
-  //       res.push(arrayString[4]);
-  //       break;
-  //     case '5':
-  //       res.push(arrayString[5]);
-  //       break;
-  //     case '6':
-  //       res.push(arrayString[6]);
-  //       break;
-  //     case '7':
-  //       res.push(arrayString[7]);
-  //       break;
-  //     case '8':
-  //       res.push(arrayString[8]);
-  //       break;
-  //     case '9':
-  //       res.push(arrayString[9]);
-  //       break;
-  //     case '-':
-  //       res.push(arrayString[10]);
-  //       break;
-  //     case '.':
-  //       res.push(arrayString[11]);
-  //       break;
-  //     case ',':
-  //       res.push(arrayString[11]);
-  //       break;
-  //     default:
-  //   }
-  // }
-  // return res.join(' ');
+function convertNumberToString(numberStr) {
+  let res = '';
+  let count = 0;
+  for (let i = 0; i < numberStr.length; i += 1) {
+    count += 1;
+    if (count === 1) {
+      switch (numberStr[i]) {
+        case '0':
+          res += 'zero';
+          break;
+        case '1':
+          res += 'one';
+          break;
+        case '2':
+          res += 'two';
+          break;
+        case '3':
+          res += 'three';
+          break;
+        case '4':
+          res += 'four';
+          break;
+        case '5':
+          res += 'five';
+          break;
+        case '6':
+          res += 'six';
+          break;
+        case '7':
+          res += 'seven';
+          break;
+        case '8':
+          res += 'eight';
+          break;
+        case '9':
+          res += 'nine';
+          break;
+        case '-':
+          res += 'minus';
+          break;
+        case '.':
+          res += 'point';
+          break;
+        case ',':
+          res += 'point';
+          break;
+        default:
+      }
+    }
+    if (count > 1) {
+      switch (numberStr[i]) {
+        case '0':
+          res += ' zero';
+          break;
+        case '1':
+          res += ' one';
+          break;
+        case '2':
+          res += ' two';
+          break;
+        case '3':
+          res += ' three';
+          break;
+        case '4':
+          res += ' four';
+          break;
+        case '5':
+          res += ' five';
+          break;
+        case '6':
+          res += ' six';
+          break;
+        case '7':
+          res += ' seven';
+          break;
+        case '8':
+          res += ' eight';
+          break;
+        case '9':
+          res += ' nine';
+          break;
+        case '-':
+          res += ' minus';
+          break;
+        case '.':
+          res += ' point';
+          break;
+        case ',':
+          res += ' point';
+          break;
+        default:
+      }
+    }
+  }
+  return res;
 }
 
 /**
@@ -486,8 +519,43 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const result = [];
+  let count = 1;
+  let startColums = 0;
+  let endColumns = size - 1;
+  let startRows = 0;
+  let endRows = size - 1;
+  for (let i = 0; i < size; i += 1) {
+    result[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      result[i][j] = '';
+    }
+  }
+
+  while (startColums <= endColumns && startRows <= endRows) {
+    for (let i = startColums; i <= endColumns; i += 1) {
+      result[startRows][i] = count;
+      count += 1;
+    }
+    startRows += 1;
+    for (let j = startRows; j <= endRows; j += 1) {
+      result[j][endColumns] = count;
+      count += 1;
+    }
+    endColumns -= 1;
+    for (let i = endColumns; i >= startColums; i -= 1) {
+      result[endRows][i] = count;
+      count += 1;
+    }
+    endRows -= 1;
+    for (let i = endRows; i >= startRows; i -= 1) {
+      result[i][startColums] = count;
+      count += 1;
+    }
+    startColums += 1;
+  }
+  return result;
 }
 
 /**
