@@ -573,19 +573,22 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
-  // const res = [];
-  // for (let i = matrix.length - 1; i >= 0; i -= 1) {
-  //   for (let k = 0; k < matrix[i].length; k += 1) {
-  //     if (!res[k]) {
-  //       res[k] = [];
-  //     }
-  //     res[k].push(matrix[i][k]);
-  //   }
-  // }
-  // console.log(res);
-  // return res;
+function rotateMatrix(matrix) {
+  const array = matrix;
+  const newArray = [];
+  const count = matrix.length - 1;
+  for (let i = matrix.length - 1; i >= 0; i -= 1) {
+    for (let j = 0; j < matrix[i].length; j += 1) {
+      if (!newArray[j]) {
+        newArray[j] = [];
+      }
+      newArray[j][count - i] = matrix[i][j];
+    }
+  }
+  for (let i = 0; i < matrix.length; i += 1) {
+    array[i] = newArray[i];
+  }
+  return matrix;
 }
 
 /**
@@ -603,15 +606,37 @@ function rotateMatrix(/* matrix */) {
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
 function sortByAsc(arr) {
-  const newArr = arr;
-  for (let i = 0; i < newArr.length; i += 1) {
-    for (let j = 0; j < newArr.length; j += 1) {
-      if (newArr[j - 1] > newArr[j]) {
-        [newArr[j - 1], newArr[j]] = [newArr[j], newArr[j - 1]];
+  const mass = arr;
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  function fastSorting(begin, finish) {
+    const num = mass[Math.floor((finish + begin) / 2)];
+    let right = finish;
+    let left = begin;
+
+    while (left <= right) {
+      while (mass[left] < num) left += 1;
+      while (mass[right] > num) right -= 1;
+
+      if (left <= right) {
+        const ex = mass[left];
+        mass[left] = mass[right];
+        mass[right] = ex;
+        right -= 1;
+        left += 1;
       }
     }
+    if (finish > left) {
+      fastSorting(left, finish);
+    }
+    if (begin < left - 1) {
+      fastSorting(begin, left - 1);
+    }
   }
-  return newArr;
+  fastSorting(0, mass.length - 1);
+  return mass;
 }
 
 /**
@@ -632,33 +657,25 @@ function sortByAsc(arr) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(str, iterations) {
-  let onePart = '';
-  let twoPart = '';
-  let result = '';
-  for (let j = 0; j < iterations; j += 1) {
-    onePart = '';
-    twoPart = '';
-    if (result.length !== 0) {
-      for (let i = 0; i < result.length; i += 1) {
-        if (i % 2 !== 0) {
-          twoPart += result[i];
-        } else {
-          onePart += result[i];
-        }
-      }
-      result = onePart + twoPart;
-    } else {
-      for (let i = 0; i < str.length; i += 1) {
-        if (i % 2 !== 0) {
-          twoPart += str[i];
-        } else {
-          onePart += str[i];
-        }
-      }
-      result = onePart + twoPart;
+  let newStr = str;
+  let count = 0;
+  const res = [];
+  while (count < iterations) {
+    count += 1;
+    let right = '';
+    let left = '';
+    for (let i = 0; i < str.length; i += 2) {
+      right += newStr[i + 1];
+      left += newStr[i];
+    }
+    newStr = `${left}${right}`;
+    res[count] = newStr;
+    if (str === newStr) {
+      return res[iterations % count];
     }
   }
-  return result;
+
+  return newStr;
 }
 
 /**
